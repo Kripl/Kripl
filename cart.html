@@ -341,13 +341,21 @@ document.getElementById('backBtn').addEventListener('click', ()=>{
 const cartContainer = document.getElementById('cart');
 const checkoutBtn = document.getElementById('checkoutBtn');
 
+// --- Додано: курси валют ---
+const currencyRates = {
+    USD: 40,   // 1 USD = 40 грн
+    EUR: 45,   // 1 EUR = 45 грн
+    UAH: 1     // гривня
+};
+
 function saveCart(){ localStorage.setItem('cart', JSON.stringify(cartItems)); }
 function loadCart(){ 
     let stored = JSON.parse(localStorage.getItem('cart') || '[]');
     return stored.map(item=>({
         ...item,
         price: isNaN(parseFloat(item.price)) ? 0 : parseFloat(item.price),
-        quantity: isNaN(parseInt(item.quantity)) ? 1 : parseInt(item.quantity)
+        quantity: isNaN(parseInt(item.quantity)) ? 1 : parseInt(item.quantity),
+        currency: item.currency || 'UAH' // якщо валюта не вказана, беремо гривні
     }));
 }
 
@@ -370,7 +378,7 @@ function renderCart() {
                 <p class="item-title">${item.title}</p>
                 <p class="item-color">${item.color}</p>
                 <p class="item-size">${item.size}</p>
-                <p class="cart-item-price">${item.price} ₴</p>
+                <p class="cart-item-price">${item.price.toFixed(2)} ₴</p>
             </div>
             <input type="number" class="cart-item-quantity" value="${item.quantity}" min="1" onchange="changeQuantity(${index}, this.value)">
             <button class="delete-btn" onclick="removeItem(${index})">Видалити</button>
@@ -380,9 +388,19 @@ function renderCart() {
     checkoutBtn.disabled = false;
     updateTotal();
 }
+
+// --- Додано: конвертація валют при додаванні ---
 function addToCart(item){
     item.price = parseFloat(item.price) || 0;
     item.quantity = parseInt(item.quantity) || 1;
+    const currency = item.currency || 'UAH';
+
+    // конвертуємо в гривні
+    if(currencyRates[currency]){
+        item.price = item.price * currencyRates[currency];
+        item.currency = 'UAH';
+    }
+
     cartItems.push(item);
     saveCart();
     renderCart();
@@ -410,7 +428,7 @@ function updateTotal(){
         let quantity = parseInt(item.quantity) || 1;
         return sum + (price * quantity);
     },0);
-    document.getElementById('total').textContent = `Сума: ${total} ₴`;
+    document.getElementById('total').textContent = `Сума: ${total.toFixed(2)} ₴`;
 }
 
 function openModal(){ 
@@ -486,14 +504,6 @@ function prepareOrderData(name, surname, phone, social) {
 }
 
 async function sendToTelegram(order) {
-    // 🔧 ДВОЄ АДМІНІВ - замініть на реальні chat_id
-    const ADMIN_CHAT_IDS = [
-        '868464115',    // Перший адмін (замініть на ваш chat_id)
-        '580852151'     // Другий адмін (замініть на chat_id другого адміна)
-    ];
-    
-    const BOT_TOKEN = '7600309533:AAGW10Bjm4Br4ma8HEWxcvYmdJCz4pwrelE'; // Ваш токен
-    
     // Формуємо красиве повідомлення для Telegram
     let message = `🛍️ <b>НОВЕ ЗАМОВЛЕННЯ</b>\n`;
     message += `📦 <b>№${order.id}</b>\n\n`;
@@ -508,14 +518,21 @@ async function sendToTelegram(order) {
         message += `\n${index + 1}. <b>${item.name}</b>\n`;
         message += `   🎨 Колір: ${item.color}\n`;
         message += `   📏 Розмір: ${item.size}\n`;
-        message += `   📦 Кількість: ${item.quantity} × ${item.price}₴ = ${itemTotal}₴\n`;
+        message += `   📦 Кількість: ${item.quantity} × ${item.price.toFixed(2)}₴ = ${itemTotal.toFixed(2)}₴\n`;
     });
     
-    message += `\n💰 <b>Загальна сума:</b> ${order.total}₴\n`;
+    message += `\n💰 <b>Загальна сума:</b> ${order.total.toFixed(2)}₴\n`;
     message += `⏰ <b>Час отримання:</b> ${new Date().toLocaleTimeString('uk-UA')}`;
     
     // Відправляємо ОБОМ адмінам
     const sendPromises = ADMIN_CHAT_IDS.map(chatId => {
+		 const ADMIN_CHAT_IDS = [
+        '868464115',    // Перший адмін (замініть на ваш chat_id)
+        '580852151'     // Другий адмін (замініть на chat_id другого адміна)
+    ];
+    
+    const BOT_TOKEN = '7600309533:AAGW10Bjm4Br4ma8HEWxcvYmdJCz4pwrelE'; // Ваш токен
+    
         return fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
             method: 'POST',
             headers: {
@@ -557,6 +574,7 @@ function clearCartAndForm() {
 
 renderCart();
 </script>
+
 
 </body>
 </html>
