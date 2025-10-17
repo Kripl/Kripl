@@ -37,7 +37,7 @@
     <priority>0.8</priority>
   </url>
 
-  <!-- Файли shirt1.html – shirt12.html -->
+  <!-- shirt1 - shirt12 -->
   <url><loc>https://kripl.store/shirt1.html</loc><lastmod>2025-10-17</lastmod><priority>0.8</priority></url>
   <url><loc>https://kripl.store/shirt2.html</loc><lastmod>2025-10-17</lastmod><priority>0.8</priority></url>
   <url><loc>https://kripl.store/shirt3.html</loc><lastmod>2025-10-17</lastmod><priority>0.8</priority></url>
@@ -57,7 +57,7 @@
     <priority>0.8</priority>
   </url>
 
-  <!-- Файли hoodie1.html – hoodie5.html -->
+  <!-- hoodie1 - hoodie5 -->
   <url><loc>https://kripl.store/hoodie1.html</loc><lastmod>2025-10-17</lastmod><priority>0.8</priority></url>
   <url><loc>https://kripl.store/hoodie2.html</loc><lastmod>2025-10-17</lastmod><priority>0.8</priority></url>
   <url><loc>https://kripl.store/hoodie3.html</loc><lastmod>2025-10-17</lastmod><priority>0.8</priority></url>
@@ -65,3 +65,4 @@
   <url><loc>https://kripl.store/hoodie5.html</loc><lastmod>2025-10-17</lastmod><priority>0.8</priority></url>
 
 </urlset>
+
