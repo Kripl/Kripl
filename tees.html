@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Футболки KRIPL</title>
+  <link rel="stylesheet" href="style.css">
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      padding-top: 80px; /* Відступ для фіксованого header */
+    }
+
+    /* Фіксований хедер */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .header-btn {
+      text-decoration: none;
+      color: black;
+      font-weight: bold;
+      padding: 6px 14px;
+      border: 2px solid black;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      z-index: 1;
+    }
+    .header-btn:hover {
+      background: black;
+      color: white;
+      transform: scale(1.05);
+    }
+
+    /* Логотип по центру */
+    .logo {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .logo img {
+      height: 50px;
+      object-fit: contain;
+    }
+
+    /* Контент */
+    h1 {
+      text-align: center;
+      margin: 30px 0;
+    }
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+    .card {
+      background: rgba(255,255,255,0.9);
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 260px;  
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer; 
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: scale(1.03);
+    }
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    .card h3 {
+      margin: 10px 0;
+    }
+    .card .price {
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    /* Футер */
+    footer {
+      background: black;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+    .lang-switch {
+      margin-bottom: 10px;
+    }
+    .lang-switch button {
+      background: none;
+      border: 1px solid white;
+      color: white;
+      padding: 5px 10px;
+      margin: 0 5px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .lang-switch button:hover {
+      background: white;
+      color: black;
+    }
+    .social-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 15px;
+}
+.social-links a {
+  color: white;
+  font-size: 32px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+.social-links a:hover {
+  transform: scale(1.2);
+  opacity: 0.7;
+}
+  </style>
+</head>
+<body>
+  <!-- Фіксований хедер -->
+  <header>
+    <a href="index.html" class="header-btn" data-key="home">Головна</a>
+    <div class="logo">
+      <img src="logo.png" alt="KRIPL Logo">
+    </div>
+     <a href="cart.html" id="cartBtn" class="header-btn" data-key="cart">Кошик</a>
+  </header>
+   <script>
+  // Зберігаємо поточну сторінку як "previousPage" перед переходом на кошик
+  const cartBtn = document.getElementById('cartBtn');
+  cartBtn?.addEventListener('click', ()=>{
+    sessionStorage.setItem('previousPage', window.location.href);
+  });
+</script>
+
+  <!-- Контент -->
+  <main>
+    <h1 data-key="shirtsTitle">Наші футболки</h1>
+    <div class="products">
+      <!-- 12 футболок -->
+      <div class="card" data-url="shirt1.html">
+        <img src="shirt-01.jpg" alt="Футболка KRIPL 01">
+        <h3 data-key="shirt1Name">ФУТБОЛКА KRIPL (центральне лого)
+</h3>
+        <div class="price">830 грн</div>
+      </div>
+      <div class="card" data-url="shirt2.html">
+        <img src="shirt-02.jpg" alt="Футболка KRIPL 02">
+        <h3 data-key="shirt2Name">ФУТБОЛКА KRIPL (бокове лого)
+</h3>
+        <div class="price">830 грн</div>
+      </div>
+      <div class="card" data-url="shirt3.html">
+        <img src="shirt-03.jpg" alt="Футболка KRIPL 03">
+        <h3 data-key="shirt3Name">ФУТБОЛКА KRIPL <br> (заднє лого)
+        </h3>
+        <div class="price">930 грн</div>
+      </div>
+      <div class="card" data-url="shirt4.html">
+        <img src="shirt-04.jpg" alt="Футболка KRIPL 04">
+        <h3 data-key="shirt4Name">ФУТБОЛКА KRIPL (центральне лого + ваш кастом)
+</h3>
+        <div class="price">1 230 грн</div>
+      </div>
+      <div class="card" data-url="shirt5.html">
+        <img src="shirt-05.jpg" alt="Футболка KRIPL 05">
+        <h3 data-key="shirt5Name">ФУТБОЛКА KRIPL (бокове лого + ваш кастом)
+        </h3>
+        <div class="price">1 230 грн</div>
+      </div>
+      <div class="card" data-url="shirt6.html">
+        <img src="shirt-06.jpg" alt="Футболка KRIPL 06">
+        <h3 data-key="shirt6Name">ФУТБОЛКА ДВУНИТКА KRIPL (центральне лого)</h3>
+        <div class="price">890 грн</div>
+      </div>
+      <div class="card" data-url="shirt7.html">
+        <img src="shirt-07.jpg" alt="Футболка KRIPL 07">
+        <h3 data-key="shirt7Name">ФУТБОЛКА ДВУНИТКА KRIPL (бокове лого)</h3>
+        <div class="price">890 грн</div>
+      </div>
+      <div class="card" data-url="shirt8.html">
+        <img src="shirt-08.jpg" alt="Футболка KRIPL 08">
+        <h3 data-key="shirt8Name">ФУТБОЛКА ДВУНИТКА KRIPL (заднє лого)</h3>
+        <div class="price">990 грн</div>
+      </div>
+      <!-- Нові 4 лоти -->
+      <div class="card" data-url="shirt9.html">
+        <img src="shirt-09.jpg" alt="Футболка KRIPL 09">
+        <h3 data-key="shirt9Name">ФУТБОЛКА ДВУНИТКА KRIPL (центральне лого плюс ваш кастом)</h3>
+        <div class="price">1 290 грн</div>
+      </div>
+      <div class="card" data-url="shirt10.html">
+        <img src="shirt-10.jpg" alt="Футболка KRIPL 10">
+        <h3 data-key="shirt10Name">ФУТБОЛКА ДВУНИТКА KRIPL (бокове лого плюс ваш кастом)</h3>
+        <div class="price">1 290 грн</div>
+      </div>
+      <div class="card" data-url="shirt11.html">
+        <img src="shirt-11.jpg" alt="Футболка KRIPL 11">
+        <h3 data-key="shirt11Name">ПОЛО КЛАСИЧНЕ KRIPL</h3>
+        <div class="price">890 грн</div>
+      </div>
+      <div class="card" data-url="shirt12.html">
+        <img src="shirt-12.jpg" alt="Футболка KRIPL 12">
+        <h3 data-key="shirt12Name">ПОЛО КАСТОМНЕ KRIPL</h3>
+        <div class="price">990 грн</div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Футер -->
+  <footer>
+    <div class="lang-switch">
+      <button onclick="setLang('ua')">UA</button>
+      <button onclick="setLang('pl')">PL</button>
+      <button onclick="setLang('en')">EN</button>
+    </div> 
+   <div class="social-links">
+  <a href="https://www.instagram.com/kripl.ua/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+  <a href="https://t.me/+T1SHP7_Zel1hZDQ6" target="_blank"><i class="fa-brands fa-telegram"></i></a>
+  <a href="https://www.tiktok.com/@.kripl" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+</div>
+ <p>© 2025 KRIPL</p>
+  </footer>
+
+<script>
+const translations = {
+  ua: {
+    home: 'Головна', cart: 'Кошик',
+    shirtsTitle: 'Наші футболки',
+    shirt1Name: 'ФУТБОЛКА KRIPL (центральне лого)',
+    shirt2Name: 'ФУТБОЛКА KRIPL (бокове лого)',
+    shirt3Name: 'ФУТБОЛКА KRIPL (заднє лого)',
+    shirt4Name: 'ФУТБОЛКА KRIPL (центральне лого плюс ваш кастом)',
+    shirt5Name: 'ФУТБОЛКА KRIPL (бокове лого плюс ваш кастом)',
+    shirt6Name: 'ФУТБОЛКА ДВУНИТКА KRIPL (центральне лого)',
+    shirt7Name: 'ФУТБОЛКА ДВУНИТКА KRIPL (бокове лого)',
+    shirt8Name: 'ФУТБОЛКА ДВУНИТКА KRIPL (заднє лого)',
+    shirt9Name: 'ФУТБОЛКА ДВУНИТКА KRIPL (центральне лого плюс ваш кастом)',
+    shirt10Name: 'ФУТБОЛКА ДВУНИТКА KRIPL (бокове лого плюс ваш кастом)',
+    shirt11Name: 'ПОЛО КЛАСИЧНЕ KRIPL',
+    shirt12Name: 'ПОЛО КАСТОМНЕ KRIPL',
+    price1: '830 грн', price2: '830 грн', price3: '930 грн', price4: '1 230 грн', price5: '1 230 грн',
+    price6: '890 грн', price7: '890 грн', price8: '990 грн',
+    price9: '1 290 грн', price10: '1 290 грн', price11: '890  грн', price12: '990 грн' },
+
+  pl: {
+    home: 'Strona główna', cart: 'Koszyk',
+    shirtsTitle: 'Nasze koszulki',
+    shirt1Name: 'Koszulka KRIPL (logo centralne)',
+    shirt2Name: 'Koszulka KRIPL (logo boczne)',
+    shirt3Name: 'Koszulka KRIPL (logo tylne)',
+    shirt4Name: 'Koszulka KRIPL (logo centralne + twój nadruk)',
+    shirt5Name: 'Koszulka KRIPL (logo boczne + twój nadruk)',
+    shirt6Name: 'Koszulka dwunitka KRIPL (logo centralne)',
+    shirt7Name: 'Koszulka dwunitka KRIPL (logo boczne)',
+    shirt8Name: 'Koszulka dwunitka KRIPL (logo tylne)',
+    shirt9Name: 'Koszulka dwunitka KRIPL (logo centralne + twój nadruk)',
+    shirt10Name: 'Koszulka dwunitka KRIPL (logo boczne + twój nadruk)',
+    shirt11Name: 'Klasyczne polo KRIPL',
+    shirt12Name: 'Polo z nadrukiem KRIPL',
+    price1: '73 zł', price2: '73 zł', price3: '82 zł', price4: '108 zł', price5: '108 zł',
+    price6: '78.5 zł', price7: '78.5 zł', price8: '87 zł',
+    price9: '113.5 zł', price10: '113.5 zł', price11: '78.5 zł', price12: '87 zł'
+  },
+
+  en: {
+    home: 'Home', cart: 'Cart',
+    shirtsTitle: 'Our T-Shirts',
+    shirt1Name: 'KRIPL T-Shirt (front logo)',
+    shirt2Name: 'KRIPL T-Shirt (side logo)',
+    shirt3Name: 'KRIPL T-Shirt (back logo)',
+    shirt4Name: 'KRIPL T-Shirt (front logo + your custom)',
+    shirt5Name: 'KRIPL T-Shirt (side logo + your custom)',
+    shirt6Name: 'KRIPL Two-thread T-Shirt (front logo)',
+    shirt7Name: 'KRIPL Two-thread T-Shirt (side logo)',
+    shirt8Name: 'KRIPL Two-thread T-Shirt (back logo)',
+    shirt9Name: 'KRIPL Two-thread T-Shirt (front logo + your custom)',
+    shirt10Name: 'KRIPL Two-thread T-Shirt (side logo + your custom)',
+    shirt11Name: 'KRIPL Classic Polo',
+    shirt12Name: 'KRIPL Custom Polo',
+    price1: '$20', price2: '$20', price3: '$22.5', price4: '$29.5', price5: '$29.5',
+    price6: '$21.5', price7: '$21.5', price8: '$23.5',
+    price9: '$31', price10: '$31', price11: '$21.5', price12: '$23.5'
+  }
+};
+
+ let lang = localStorage.getItem('lang') || 'ua';
+
+// ✅ Функція перекладу
+function setLang(l) {
+  lang = l;
+  localStorage.setItem('lang', l);
+
+  document.querySelectorAll('[data-key]').forEach(el => {
+    const key = el.getAttribute('data-key');
+    if (!translations[lang][key]) return;
+
+    // якщо це назва футболки
+    if (key.includes('shirt')) {
+      const textWithBr = translations[lang][key].replace(/\s*\((.*?)\)/, '<br>($1)');
+      el.innerHTML = textWithBr;
+    } else {
+      el.textContent = translations[lang][key];
+    }
+  });
+
+  // ціни
+  document.querySelectorAll('.products .card').forEach((card, index) => {
+    const priceKey = `price${index + 1}`;
+    const priceDiv = card.querySelector('.price');
+    if (priceDiv && translations[lang][priceKey]) {
+      priceDiv.textContent = translations[lang][priceKey];
+    }
+  });
+}
+
+// ✅ Ініціалізація після завантаження DOM
+document.addEventListener('DOMContentLoaded', () => {
+  setLang(lang);
+
+  // додаємо кліки на картки (після перекладу!)
+  document.querySelectorAll('.products .card').forEach(card => {
+    card.addEventListener('click', () => {
+      const url = card.getAttribute('data-url');
+      if (url) window.location.href = url;
+    });
+  });
+});
+</script>
+
+
+</body>
+</html>

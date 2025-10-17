@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Кепки KRIPL</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      padding-top: 80px;
+      background: #f9f9f9;
+      color: #111;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+    header .header-btn {
+      border: 2px solid black;
+      background: white;
+      color: black;
+      padding: 8px 16px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      z-index: 1;
+    }
+    header .header-btn:hover {
+      background: black;
+      color: white;
+      transform: scale(1.05);
+    }
+    header .logo {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    header .logo img {
+      width: 70px;
+      height: auto;
+      object-fit: contain;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 30px 0;
+    }
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+    .card {
+      background: rgba(255,255,255,0.95);
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 260px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    }
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    .card h3 {
+      margin: 10px 0;
+    }
+    /* --- перенос дужок на новий рядок, але без зміни стилю --- */
+    .card h3 span {
+      display: block;
+    }
+
+    .card .price {
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      background: black;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+    .lang-switch {
+      margin-bottom: 15px;
+    }
+    .lang-switch button {
+      background: none;
+      border: 1px solid white;
+      color: white;
+      padding: 5px 10px;
+      margin: 0 5px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+    .lang-switch button:hover {
+      background: white;
+      color: black;
+    }
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 15px;
+    }
+    .social-links a {
+      color: white;
+      font-size: 32px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .social-links a:hover {
+      transform: scale(1.2);
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="header-btn" data-key="home">Головна</a>
+    <div class="logo">
+      <img src="logo.png" alt="KRIPL Logo">
+    </div>
+    <a href="cart.html" id="cartBtn" class="header-btn" data-key="cart">Кошик</a>
+  </header>
+
+  <main>
+    <h1 data-key="capsTitle">Наші кепки</h1>
+    <div class="products">
+      <div class="card" onclick="window.location.href='cap1.html'">
+        <img src="cap-01.jpg" alt="Кепка KRIPL ">
+        <h3 data-key="cap1Name">КЕПКА KRIPL</h3>
+        <div class="price">650 грн</div>
+      </div>
+
+      <div class="card" onclick="window.location.href='cap2.html'">
+        <img src="cap-02.jpg" alt="Кепка KRIPL ">
+        <h3 data-key="cap2Name">КЕПКА KRIPL <span>(ваш кастом)</span></h3>
+        <div class="price">730 грн</div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="lang-switch">
+      <button onclick="setLang('ua')">UA</button>
+      <button onclick="setLang('pl')">PL</button>
+      <button onclick="setLang('en')">EN</button>
+    </div>
+    <div class="social-links">
+      <a href="https://www.instagram.com/kripl.ua/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+      <a href="https://t.me/+T1SHP7_Zel1hZDQ6" target="_blank"><i class="fa-brands fa-telegram"></i></a>
+      <a href="https://www.tiktok.com/@.kripl" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+    </div>
+    <p>© 2025 KRIPL</p>
+  </footer>
+
+  <script>
+  const translations = {
+    ua: {
+      home: 'Головна', cart: 'Кошик',
+      capsTitle: 'Наші кепки',
+      cap1Name: 'КЕПКА KRIPL',
+      cap2Name: 'КЕПКА KRIPL <span>(ваш кастом)</span>', 
+      price1: '650 грн', price2: '730 грн'
+    },
+    pl: {
+      home: 'Strona główna', cart: 'Koszyk',
+      capsTitle: 'Nasze czapki',
+      cap1Name: 'Czapka KRIPL ',
+      cap2Name: 'Czapka KRIPL <span>(twój projekt)</span>', 
+      price1: '57 zł', price2: '64.5 zł'
+    },
+    en: {
+      home: 'Home', cart: 'Cart',
+      capsTitle: 'Our Caps',
+      cap1Name: 'KRIPL Cap ',
+      cap2Name: 'KRIPL Cap <span>(your custom)</span>',
+      price1: '$15.5', price2: '$17.5'
+    }
+  };
+
+  let lang = localStorage.getItem('lang') || 'ua';
+
+  function setLang(l){
+    lang = l;
+    localStorage.setItem('lang', l);
+
+    document.querySelectorAll('[data-key]').forEach(el => {
+      const key = el.getAttribute('data-key');
+      // ✅ Тепер дозволено HTML у перекладах
+      if(translations[lang][key]) el.innerHTML = translations[lang][key];
+    });
+
+    document.querySelectorAll('.products .card').forEach((card, index) => {
+      const priceKey = `price${index+1}`;
+      const priceDiv = card.querySelector('.price');
+      if(priceDiv && translations[lang][priceKey]) {
+        priceDiv.textContent = translations[lang][priceKey];
+      }
+    });
+  }
+
+  setLang(lang);
+  const cartBtn = document.getElementById('cartBtn');
+  cartBtn?.addEventListener('click', ()=>{
+    sessionStorage.setItem('previousPage', window.location.href);
+  });
+  </script>
+</body>
+</html>

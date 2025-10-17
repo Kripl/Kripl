@@ -1,0 +1,562 @@
+ <!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Кошик — KRIPL</title>
+
+<!-- Font Awesome для іконок соцмереж -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f9f9f9;
+  color: #111;   
+   overflow-x: hidden; /* забороняє горизонтальний скрол */
+  width: 100%;
+}
+/* Header */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 30px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100vw;       /* використати всю ширину вікна */
+  box-sizing: border-box;
+}
+header .btn-group { display: flex; gap: 15px; }
+header .logo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+header .logo img { width: 70px; height: auto; object-fit: contain; }
+header button {
+  border: 2px solid black;
+  background: white;
+  color: black;
+  padding: 8px 16px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+header button:hover { background: black; color: white; }
+
+/* Main */
+main {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+    padding-bottom: 90px;
+}
+
+.cart-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 12px;
+  padding: 15px;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.cart-item img {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 20px;
+}
+
+.cart-item-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.cart-item-details p { margin: 4px 0; }
+
+/* Кількість */
+.cart-item-quantity {
+  width: 60px;
+  padding: 6px;
+  border-radius: 50px;
+  border: 1px solid #ccc;
+  text-align: center;
+  margin-left: 10px;
+  margin-right: 10px;
+  align-self: center;
+}
+
+/* Кнопка видалити */
+.delete-btn {
+  position: absolute;
+  right: 15px;
+  bottom: 10px;
+  border: 0.5px solid black;
+  background: white;
+  color: black;
+  padding: 7px 20px;
+  border-radius: 20px;
+  font-size: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.delete-btn:hover { 
+  background: black; 
+  color: white; 
+}
+
+.total {
+  text-align: right;
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.checkout-btn {
+  padding: 12px 25px;
+  background: black;
+  color: white;
+  border-radius: 50px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.checkout-btn:hover { background: #333; }
+.checkout-btn:disabled { background: gray; cursor: not-allowed; }
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: 12px;
+  padding: 25px;
+  width: 350px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  transform: scale(0.8);
+  animation: scaleUp 0.3s forwards;
+}
+
+@keyframes scaleUp { to { transform: scale(1); } }
+
+.close-modal {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  transition: transform 0.2s;
+}
+.close-modal:hover { transform: rotate(90deg); }
+
+.modal-content input {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 8px;
+  border-radius: 50px;
+  border: 1px solid #ccc;
+}
+
+.modal-content button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 50px;
+  border: none;
+  background: black;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.modal-content button:hover { background: #333; }
+.order-note {
+  max-width: 1000px;
+  margin: 20px auto 100px; /* 100px відступ знизу, щоб не перекрив футер */
+  padding: 15px 20px;
+  background: #f0f0f0;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 14px;
+  color: #111;
+  line-height: 1.5;
+}
+
+
+/* Footer */
+footer {
+  background: #000;
+  color: #fff;
+  text-align: center;
+  padding: 20px 10px;
+  left: 0;
+  width: 100%;  
+  position: fixed;  /* закріплює футер */
+  bottom: 0;        /* прикріплює до низу */
+  z-index: 1000; 
+}
+
+footer .social-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 10px;
+}
+
+footer .social-links a {
+  color: white;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+footer .social-links a:hover {
+  transform: scale(1.2);
+  opacity: 0.7;
+}
+
+footer p {
+  font-size: 14px;
+  opacity: 0.7;
+  margin: 0;
+}
+.attention-line {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 30px 0;
+  font-weight: bold;
+  color: black;
+  font-size: 18px;
+  position: relative;
+}
+
+.attention-line::before,
+.attention-line::after {
+  content: '';
+  flex: 1;
+  height: 3px;
+  background: black;
+  margin: 0 15px;
+  border-radius: 2px;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="btn-group">
+    <button id="backBtn">Назад</button>
+  </div>
+  <div class="logo">
+    <img src="logo.png" alt="KRIPL Logo">
+  </div>
+  <div class="btn-group">
+    <button onclick="window.location.href='index.html'">Головна</button>
+  </div>
+</header>
+
+<main>
+  <div class="cart-container" id="cart"></div>
+  <div class="total" id="total">Сума: 0 грн</div>
+  <button class="checkout-btn" onclick="openModal()" id="checkoutBtn" disabled>Оформити замовлення</button>
+</main>
+
+<div class="modal" id="checkoutModal">
+  <div class="modal-content">
+    <span class="close-modal" onclick="closeModal()">×</span>
+    <h2 id="modalTitle">Оформлення замовлення</h2>
+    <input type="text" id="name" placeholder="Ім'я">
+    <input type="text" id="surname" placeholder="Прізвище">
+    <input type="tel" id="phone" placeholder="Номер телефону">
+    <input type="text" id="social" placeholder="Telegram/Instagram (не обовязково)">
+    <button onclick="submitOrder()" id="sendBtn">Надіслати</button>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="social-links">
+    <a href="https://www.instagram.com/kripl.ua/" target="_blank" aria-label="Instagram">
+      <i class="fa-brands fa-instagram fa-2x"></i>
+    </a>
+    <a href="https://t.me/+T1SHP7_Zel1hZDQ6" target="_blank" aria-label="Telegram">
+      <i class="fa-brands fa-telegram fa-2x"></i>
+    </a>
+    <a href="https://www.tiktok.com/@.kripl" target="_blank" aria-label="TikTok">
+      <i class="fa-brands fa-tiktok fa-2x"></i>
+    </a>
+  </div>
+  <p>© 2025 KRIPL</p>
+</footer>
+<div class="order-note">
+	   <div class="attention-line">
+  <span>↓УВАГА↓</span>
+</div>
+  <p> Оплату на сайті не приймаємо у звʼязку з індивідуальністю нашого продукту, залишайте замовлення через кошик і ми з вами звʼяжемося, або пишіть у наші офіційні соціальні мережі які вказані нижче.</p>
+  <p>We do not accept payment on the website due to the individuality of our product, place an order through the cart and we will contact you, or write to our official social networks listed below.</p>
+</div>
+
+<script>
+// --- Збереження попередньої сторінки ---
+if(document.referrer){
+    sessionStorage.setItem('previousPage', document.referrer);
+}
+
+document.getElementById('backBtn').addEventListener('click', ()=>{
+    const prevPage = sessionStorage.getItem('previousPage') || 'index.html';'caps.html';'cap1.html';'cap2.html';
+    window.location.href = prevPage;
+});
+
+// --- Кошик ---
+const cartContainer = document.getElementById('cart');
+const checkoutBtn = document.getElementById('checkoutBtn');
+
+function saveCart(){ localStorage.setItem('cart', JSON.stringify(cartItems)); }
+function loadCart(){ 
+    let stored = JSON.parse(localStorage.getItem('cart') || '[]');
+    return stored.map(item=>({
+        ...item,
+        price: isNaN(parseFloat(item.price)) ? 0 : parseFloat(item.price),
+        quantity: isNaN(parseInt(item.quantity)) ? 1 : parseInt(item.quantity)
+    }));
+}
+
+let cartItems = loadCart();
+
+function renderCart() {
+    cartContainer.innerHTML = '';
+    if(cartItems.length === 0){
+        cartContainer.innerHTML = `<p>Кошик порожній</p>`;
+        checkoutBtn.disabled = true;
+        updateTotal();
+        return;
+    }
+    cartItems.forEach((item, index)=>{
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+        div.innerHTML = `
+            <img src="${item.img}" alt="Товар">
+            <div class="cart-item-details">
+                <p class="item-title">${item.title}</p>
+                <p class="item-color">${item.color}</p>
+                <p class="item-size">${item.size}</p>
+                <p class="cart-item-price">${item.price} ₴</p>
+            </div>
+            <input type="number" class="cart-item-quantity" value="${item.quantity}" min="1" onchange="changeQuantity(${index}, this.value)">
+            <button class="delete-btn" onclick="removeItem(${index})">Видалити</button>
+        `;
+        cartContainer.appendChild(div);
+    });
+    checkoutBtn.disabled = false;
+    updateTotal();
+}
+function addToCart(item){
+    item.price = parseFloat(item.price) || 0;
+    item.quantity = parseInt(item.quantity) || 1;
+    cartItems.push(item);
+    saveCart();
+    renderCart();
+}
+
+function removeItem(index){
+    const itemDiv = cartContainer.children[index];
+    itemDiv.style.animation = 'fadeOut 0.3s forwards';
+    setTimeout(()=>{
+        cartItems.splice(index,1);
+        saveCart();
+        renderCart();
+    },300);
+}
+
+function changeQuantity(index, value){
+    cartItems[index].quantity = parseInt(value) || 1;
+    saveCart();
+    updateTotal();
+}
+
+function updateTotal(){
+    let total = cartItems.reduce((sum,item)=>{
+        let price = parseFloat(item.price) || 0;
+        let quantity = parseInt(item.quantity) || 1;
+        return sum + (price * quantity);
+    },0);
+    document.getElementById('total').textContent = `Сума: ${total} ₴`;
+}
+
+function openModal(){ 
+    if(cartItems.length>0) document.getElementById('checkoutModal').style.display='flex'; 
+}
+
+function closeModal(){ 
+    document.getElementById('checkoutModal').style.display='none'; 
+}
+function submitOrder(){
+    if(cartItems.length === 0){
+        alert('Кошик порожній!');
+        return;
+    }
+
+    const name = document.getElementById('name').value.trim();
+    const surname = document.getElementById('surname').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const social = document.getElementById('social').value.trim();
+
+    if(!name || !surname || !phone){
+        alert('Будь ласка, заповніть всі обов\'язкові поля');
+        return;
+    }
+
+    // Показуємо завантаження
+    const sendBtn = document.getElementById('sendBtn');
+    const originalText = sendBtn.textContent;
+    sendBtn.textContent = 'Відправляємо...';
+    sendBtn.disabled = true;
+
+    // Готуємо дані замовлення
+    const orderData = prepareOrderData(name, surname, phone, social);
+    
+    // Відправляємо в Telegram
+    sendToTelegram(orderData)
+        .then(() => {
+            alert('✅ Замовлення успішно відправлено! Ми з вами зв\'яжемось протягом 15 хвилин.');
+            clearCartAndForm();
+        })
+        .catch(error => {
+            console.error('Помилка:', error);
+            alert('❌ Помилка відправки. Спробуйте ще раз або зв\'яжіться з нами напряму через Instagram.');
+        })
+        .finally(() => {
+            sendBtn.textContent = originalText;
+            sendBtn.disabled = false;
+        });
+}
+
+function prepareOrderData(name, surname, phone, social) {
+    const mappedCart = cartItems.map(item => ({
+        name: item.title || 'Без назви',
+        color: item.color || 'Не вказано',
+        size: item.size || 'Не вказано',
+        price: parseFloat(item.price) || 0,
+        quantity: parseInt(item.quantity) || 1
+    }));
+
+    const total = mappedCart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const orderId = 'ORDER_' + Date.now().toString().slice(-6);
+    
+    return {
+        id: orderId,
+        firstName: name,
+        lastName: surname,
+        phone: phone,
+        username: social,
+        cart: mappedCart,
+        total: total,
+        date: new Date().toLocaleString('uk-UA')
+    };
+}
+
+async function sendToTelegram(order) {
+    // 🔧 ДВОЄ АДМІНІВ - замініть на реальні chat_id
+    const ADMIN_CHAT_IDS = [
+        '868464115',    // Перший адмін (замініть на ваш chat_id)
+        '580852151'     // Другий адмін (замініть на chat_id другого адміна)
+    ];
+    
+    const BOT_TOKEN = '7600309533:AAGW10Bjm4Br4ma8HEWxcvYmdJCz4pwrelE'; // Ваш токен
+    
+    // Формуємо красиве повідомлення для Telegram
+    let message = `🛍️ <b>НОВЕ ЗАМОВЛЕННЯ</b>\n`;
+    message += `📦 <b>№${order.id}</b>\n\n`;
+    message += `👤 <b>Клієнт:</b> ${order.firstName} ${order.lastName}\n`;
+    message += `📞 <b>Телефон:</b> <code>${order.phone}</code>\n`;
+    message += `💬 <b>Соцмережа:</b> ${order.username || 'Не вказано'}\n`;
+    message += `📅 <b>Дата:</b> ${order.date}\n\n`;
+    message += `🛒 <b>Товари:</b>\n`;
+    
+    order.cart.forEach((item, index) => {
+        const itemTotal = item.quantity * item.price;
+        message += `\n${index + 1}. <b>${item.name}</b>\n`;
+        message += `   🎨 Колір: ${item.color}\n`;
+        message += `   📏 Розмір: ${item.size}\n`;
+        message += `   📦 Кількість: ${item.quantity} × ${item.price}₴ = ${itemTotal}₴\n`;
+    });
+    
+    message += `\n💰 <b>Загальна сума:</b> ${order.total}₴\n`;
+    message += `⏰ <b>Час отримання:</b> ${new Date().toLocaleTimeString('uk-UA')}`;
+    
+    // Відправляємо ОБОМ адмінам
+    const sendPromises = ADMIN_CHAT_IDS.map(chatId => {
+        return fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                chat_id: chatId,
+                text: message,
+                parse_mode: 'HTML'
+            })
+        });
+    });
+    
+    // Чекаємо поки обом відправиться
+    const results = await Promise.all(sendPromises);
+    
+    // Перевіряємо чи хоча б один успішний
+    const atLeastOneSuccess = results.some(response => response.ok);
+    
+    if (!atLeastOneSuccess) {
+        throw new Error('Не вдалося відправити жодному адміну');
+    }
+    
+    console.log(`✅ Замовлення відправлено ${results.filter(r => r.ok).length}/2 адмінам`);
+    return results;
+}
+
+function clearCartAndForm() {
+    cartItems = [];
+    saveCart();
+    renderCart();
+    closeModal();
+    
+    document.getElementById('name').value = '';
+    document.getElementById('surname').value = '';
+    document.getElementById('phone').value = '';
+    document.getElementById('social').value = '';
+}
+
+renderCart();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KRIPL — Streetwear</title>
+
+  <!-- Підключення стилів -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Підключення Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .hero {
+    width: 100%;
+    height: 400px; 
+    background-image: url('banner.jpg'); 
+    background-size: cover; 
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+  }
+  .hero-content h1 {
+    font-size: 48px;
+    margin: 0;
+  }
+
+  .products {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  .card {
+    background: rgba(255,255,255,0.9);
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    width: 260px;  
+    height: 360px; 
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .card:hover { transform: scale(1.05); }
+  .card img {
+    width: 100%;
+    height: 180px; 
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+
+  .section-divider {
+    border: 0;
+    height: 4px;            
+    background-color: #000;  
+    width: 100%;             
+    margin: 40px auto;      
+    border-radius: 2px;     
+  }
+
+  footer {
+    background: #000;
+    color: #fff;
+    text-align: center;
+    padding: 20px 10px;
+  }
+  footer .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 10px;
+  }
+
+  @media (max-width: 768px) {
+    header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    nav {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .lang {
+      margin-top: 10px;
+    }
+
+    .brand img {
+      width: 90px;
+      height: auto;
+    }
+
+    .hero {
+      height: 250px;
+    }
+  }
+  .attention-line {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 30px 0;
+  font-weight: bold;
+  color: red;
+  font-size: 18px;
+  position: relative;
+}
+
+.attention-line::before,
+.attention-line::after {
+  content: '';
+  flex: 1;
+  height: 3px;
+  background: red;
+  margin: 0 15px;
+  border-radius: 2px;
+}
+
+.warning-text {
+  color: red;
+  font-weight: 600;
+}
+  </style>
+</head>
+<body>
+
+<header style="display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px 20px; background-color:#fff; box-shadow:0 2px 5px rgba(0,0,0,0.1);">
+  <div class="brand" style="text-align:center;">
+    <img src="logo.png" alt="KRIPL Logo" style="width:110px; height:60px; object-fit:contain;">
+  </div>
+
+  <nav style="display:flex; gap:20px; justify-content:center;">
+    <a href="#home" onclick="showPage('home')" data-key="home">Головна</a>
+    <a href="#products" onclick="showPage('products')" data-key="productsPage">Товари</a>
+    <a href="#about" onclick="showPage('about')" data-key="aboutPage">Про нас</a>
+    <a href="cart.html" id="cartBtn" data-key="cart">Кошик</a>
+  </nav>
+
+  <div class="lang" style="display:flex; gap:10px; margin-top:10px;">
+    <button onclick="setLang('ua')">UA</button>
+    <button onclick="setLang('pl')">PL</button>
+    <button onclick="setLang('en')">EN</button>
+  </div>
+</header>
+
+<main>
+  <section id="home">
+    <div class="hero">
+      <div class="hero-content">
+        <h1 data-key="brandTitle">ЗАЛИШ СВІЙ СЛІД РАЗОМ З KRIPL</h1>
+      </div>
+    </div>
+  </section>
+
+  <section id="products" class="section">
+    <h2 class="section-title" data-key="products">Наші товари</h2>
+    <div class="products" id="productList">
+      <div class="card" onclick="window.location.href='caps.html'">
+        <img src="cap-01.jpg" alt="Кепка KRIPL">
+        <div class="info">
+          <h3 data-key="capName">Кепка KRIPL</h3>
+        </div>
+      </div>
+      <div class="card" onclick="window.location.href='tees.html'">
+        <img src="tee-01.jpg" alt="Футболка KRIPL">
+        <div class="info">
+          <h3 data-key="teeName">Футболка KRIPL</h3>
+        </div>
+      </div>
+      <div class="card" onclick="window.location.href='hoodies.html'">
+        <img src="hoodie-01.jpg" alt="Худі KRIPL">
+        <div class="info">
+          <h3 data-key="hoodieName">Худі KRIPL</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="section-divider">
+
+  <section id="about" class="section" style="text-align:center;">
+    <h2 class="section-title" data-key="aboutTitle">Про нас</h2>
+    <p data-key="aboutText">
+      KRIPL — одяг із підписом твого характеру. Ми створюємо унікальні авторські надписи та автографи, які стають головним акцентом твого образу.
+    </p>
+    <div class="attention-line">
+      <span data-key="attention">↓УВАГА↓</span>
+    </div>
+    <br><br>
+    <p data-key="customOrderNote" class="warning-text">
+      Оплату на сайті не приймаємо у звʼязку з індивідуальністю нашого продукту, залишайте замовлення через кошик і ми з вами звʼяжемося, або пишіть у наші офіційні соціальні мережі які вказані нижче.
+    </p>
+  </section>
+</main>
+
+<footer>
+  <div class="social-links">
+    <a href="https://www.instagram.com/kripl.ua/" target="_blank"><i class="fa-brands fa-instagram fa-2x"></i></a>
+    <a href="https://t.me/+T1SHP7_Zel1hZDQ6" target="_blank"><i class="fa-brands fa-telegram fa-2x"></i></a>
+    <a href="https://www.tiktok.com/@.kripl" target="_blank"><i class="fa-brands fa-tiktok fa-2x"></i></a>
+  </div>
+  <p>© 2025 KRIPL</p>
+</footer>
+
+<script>
+const translations = {
+  ua: {
+    home: 'Головна', productsPage: 'Товари', aboutPage: 'Про нас', cart: 'Кошик',
+    products: 'Наші товари', 
+    brandTitle: 'ЗАЛИШ СВІЙ СЛІД РАЗОМ З KRIPL',
+    capName: 'Кепка KRIPL', teeName: 'Футболка KRIPL', hoodieName: 'Худі KRIPL',
+    aboutTitle: 'Про нас',
+    aboutText: 'KRIPL — одяг із підписом твого характеру. Ми створюємо унікальні авторські надписи та автографи, які стають головним акцентом твого образу.',
+    customOrderNote: 'Оплату на сайті не приймаємо у звʼязку з індивідуальністю нашого продукту, залишайте замовлення через кошик і ми з вами звʼяжемося, або пишіть у наші офіційні соціальні мережі які вказані нижче.',
+    attention: 'Увага',
+  },
+  pl: {
+    home: 'Strona główna', productsPage: 'Produkty', aboutPage: 'O nas', cart: 'Koszyk',
+    products: 'Nasze produkty', 
+    brandTitle: 'ZOSTAW SWÓJ ŚLAD Z KRIPL',
+    capName: 'Czapka KRIPL', teeName: 'Koszulka KRIPL', hoodieName: 'Bluza KRIPL',
+    aboutTitle: 'O nas',
+    aboutText: 'KRIPL — ubrania z podpisem Twojego charakteru. Tworzymy unikalne napisy i autografy, które stają się akcentem Twojego stylu.',
+    customOrderNote: 'Ze względu na specyfikę naszego produktu, nie przyjmujemy płatności na stronie internetowej. Złóż zamówienie za pośrednictwem koszyka, a my się z Tobą skontaktujemy, lub napisz do nas na nasze oficjalne portale społecznościowe, których listę znajdziesz poniżej.',
+     attention: 'Uwaga',
+  },
+  en: {
+    home: 'Home', productsPage: 'Products', aboutPage: 'About', cart: 'Cart',
+    products: 'Products', 
+    brandTitle: 'LEAVE YOUR MARK WITH KRIPL',
+    capName: 'KRIPL Cap', teeName: 'KRIPL T-shirt', hoodieName: 'KRIPL Hoodie',
+    aboutTitle: 'About',
+    aboutText: 'KRIPL — clothing with the signature of your character. We create unique inscriptions and autographs that define your look.',
+    customOrderNote: 'We do not accept payment on the website due to the individuality of our product, place an order through the cart and we will contact you, or write to our official social networks listed below.',
+    attention: 'Attention',
+  }
+};
+
+let lang = localStorage.getItem('lang') || 'ua';
+function setLang(l){
+  lang = l;
+  localStorage.setItem('lang', l);
+  document.querySelectorAll('[data-key]').forEach(el => {
+    const key = el.getAttribute('data-key');
+    if(translations[lang][key]) el.textContent = translations[lang][key];
+  });
+}
+setLang(lang);
+
+document.getElementById("cartBtn").addEventListener('click', ()=>{
+  sessionStorage.setItem('previousPage', window.location.href);
+  window.location.href = "cart.html";
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Кепка — KRIPL</title>
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f9f9f9;
+  color: #111;
+}
+
+/* Header */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 30px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+header .btn-group { display: flex; gap: 15px; }
+header .logo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+header .logo img { width: 70px; height: auto; object-fit: contain; }
+header button {
+  border: 2px solid black;
+  background: white;
+  color: black;
+  padding: 8px 16px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+header button:hover { background: black; color: white; }
+
+/* Main */
+main {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+}
+.product {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.slider {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+.slider img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; }
+.slider button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+.slider .prev { left: 10px; }
+.slider .next { right: 10px; }
+
+.product h2 { margin: 15px 0 5px; font-size: 26px; }
+.product p { font-size: 16px; color: #555; }
+.product .price { margin: 15px 0; font-size: 22px; font-weight: bold; }
+
+/* Colors */
+.colors {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.color {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border 0.25s ease;
+}
+.color:hover { 
+  transform: scale(1.15); 
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12); 
+}
+.color.selected { 
+  border: 2px solid #111; 
+  transform: scale(1.22); 
+  box-shadow: 0 10px 22px rgba(0,0,0,0.18); 
+}
+
+.actions {
+  display: flex;
+  justify-content : center;
+  margin-top: 20px;
+}
+.actions button {
+  border: 1px solid #111;
+  background: #fff;
+  color: #111;
+  padding: 10px 25px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 16px;
+}
+.actions button:hover { background: #111; color: #fff; }
+
+/* Footer */
+footer {
+  background: #000;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+}
+footer .social-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 10px;
+}
+footer .social-links a {
+  color: white;
+  font-size: 32px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+footer .social-links a:hover {
+  transform: scale(1.2);
+  opacity: 0.7;
+}
+footer p {
+  font-size: 14px;
+  opacity: 0.7;
+  margin: 0;
+}
+
+/* Language buttons */
+.lang-footer {
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-bottom:15px;
+}
+.lang-footer button {
+  border:1px solid white;
+  background:black;
+  color:white;
+  padding:4px 8px;
+  border-radius:5px;
+  font-weight:bold;
+  font-size:12px;
+  cursor:pointer;
+  transition: all 0.3s ease;
+}
+.lang-footer button:hover { background:white; color:black; }
+
+/* --- Нове: Адаптація кнопок для мобільних --- */
+@media (max-width: 768px) {
+  /* Кнопки Головна та Назад в стовпчик */
+  header .btn-group:first-child {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="btn-group">
+    <button onclick="window.location.href='index.html'" data-key="homeBtn">Головна</button>
+    <button onclick="window.location.href='caps.html'" data-key="backBtn">Назад</button>
+  </div>
+
+  <div class="logo">
+    <img src="logo.png" alt="KRIPL Logo">
+  </div>
+
+  <div class="btn-group">
+    <button id="cartBtn" data-key="cartBtn">Кошик</button>
+  </div>
+</header>
+
+<main>
+  <div class="product">
+    <div class="slider">
+      <img id="slide" src="cap-white-1.jpg" alt="Кепка 1">
+      <button class="prev" onclick="prevSlide()">❮</button>
+      <button class="next" onclick="nextSlide()">❯</button>
+    </div>
+
+    <h2 data-key="capTitle">КЕПКА KRIPL</h2>
+    <p data-key="capDesc">Вічна класика у виконанні KRIPL, доповни свій образ кепкою з нашим фірмовим дизайнерським лого яке підкреслить твій унікальний стиль! 
+Склад: 100% бавовна.</p>
+    <div class="price" data-key="price">650 грн</div>
+
+    <h3 data-key="colorText">Оберіть колір:</h3>
+    <div class="colors" id="colorOptions"></div>
+
+    <div class="actions">
+       <button onclick="addToCart()" data-key="cartAddBtn">Добавити в кошик</button>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="lang-footer">
+    <button onclick="setLang('ua')">UA</button>
+    <button onclick="setLang('pl')">PL</button>
+    <button onclick="setLang('en')">EN</button>
+  </div>
+
+  <div class="social-links">
+    <a href="https://www.instagram.com/kripl.ua/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+    <a href="https://t.me/+T1SHP7_Zel1hZDQ6" target="_blank"><i class="fa-brands fa-telegram"></i></a>
+    <a href="https://www.tiktok.com/@.kripl" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+  </div>
+  <p>© 2025 KRIPL</p>
+</footer>
+
+<script>
+// Фото для кожного кольору
+const colorSlides = {
+  white:["cap-white-1.jpg","cap-white-2.jpg","cap-white-3.jpg"],
+  black:["cap-black-1.jpg","cap-black-2.jpg","cap-black-3.jpg"],
+  beige:["cap-beige-1.jpg","cap-beige-2.jpg","cap-beige-3.jpg"],
+  gray:["cap-gray-1.jpg","cap-gray-2.jpg","cap-gray-3.jpg"],
+  red:["cap-red-1.jpg","cap-red-2.jpg","cap-red-3.jpg"],
+  orange:["cap-orange-1.jpg","cap-orange-2.jpg","cap-orange-3.jpg"],
+  yellow:["cap-yellow-1.jpg","cap-yellow-2.jpg","cap-yellow-3.jpg"],
+  pink:["cap-pink-1.jpg","cap-pink-2.jpg","cap-pink-3.jpg"]
+};
+
+const colorHex = {
+  white:"#fff", black:"#000", beige:"#f5f5dc", gray:"#808080",
+   red:"#ff0000", orange:"#ffa500", yellow:"#ffff00", pink:"#ffc0cb"
+};
+
+let selectedColor = "white";
+let currentSlide = 0;
+
+function showSlide(index){
+  const slides = colorSlides[selectedColor];
+  currentSlide = (index + slides.length) % slides.length;
+  document.getElementById("slide").src = slides[currentSlide];
+}
+function prevSlide(){ showSlide(currentSlide-1); }
+function nextSlide(){ showSlide(currentSlide+1); }
+
+// Генеруємо кнопки кольорів
+const colors = Object.keys(colorSlides);
+const colorContainer = document.getElementById("colorOptions");
+
+colors.forEach(c => {
+  const div = document.createElement("div");
+  div.className = "color";
+  div.style.background = colorHex[c];
+  div.onclick = () => {
+    document.querySelectorAll(".color").forEach(el => el.classList.remove("selected"));
+    div.classList.add("selected");
+    selectedColor = c;
+    currentSlide = 0;
+    showSlide(currentSlide);
+  };
+  colorContainer.appendChild(div);
+
+  if(c === "white"){
+    div.classList.add("selected");
+    selectedColor = "white";
+    currentSlide = 0;
+    showSlide(currentSlide);
+  }
+});
+
+// Локалізація
+const translations = {
+  ua:{capTitle:"КЕПКА KRIPL", capDesc:"Вічна класика у виконанні KRIPL, доповни свій образ кепкою з нашим фірмовим дизайнерським лого яке підкреслить твій унікальний стиль! Склад: 100% бавовна.", colorText:"Оберіть колір:", buyNowBtn:"Купити", cartAddBtn:"Добавити в кошик", homeBtn:"Головна", backBtn:"Назад", cartBtn:"Кошик", footerBrand:"KRIPL", price:"650 грн", selectColor:"Будь ласка, оберіть колір!", cartAddMsg:"Товар додано до кошика!"},
+  pl:{capTitle:"Czapka KRIPL", capDesc:"Ponadczasowy klasyk od KRIPL. Uzupełnij swój look czapką z logo naszego projektanta, która podkreśli Twój niepowtarzalny styl! Skład: 100% bawełna.", colorText:"Wybierz kolor:", buyNowBtn:"Kup teraz", cartAddBtn:"Dodaj do koszyka", homeBtn:"Strona główna", backBtn:"Wstecz", cartBtn:"Koszyk", footerBrand:"KRIPL", price:"57 zł", selectColor:"Proszę wybrać kolor!", cartAddMsg:"Produkt dodany do koszyka!"},
+  en:{capTitle:"KRIPL Cap", capDesc:"A timeless classic by KRIPL, complete your look with a cap with our signature designer logo that will emphasize your unique style!  Composition: 100% cotton.", colorText:"Choose color:", buyNowBtn:"Buy Now", cartAddBtn:"Add to cart", homeBtn:"Home", backBtn:"Back", cartBtn:"Cart", footerBrand:"KRIPL", price:"15.5$", selectColor:"Please choose a color!", cartAddMsg:"Product added to cart!"}
+};
+
+let lang = localStorage.getItem('lang') || 'ua';
+function setLang(l){
+  lang = l;
+  localStorage.setItem('lang', l);
+  document.querySelectorAll('[data-key]').forEach(el=>{
+    const key = el.getAttribute('data-key');
+    if(translations[lang][key]) el.textContent = translations[lang][key];
+  });
+  document.querySelector(".price").textContent = translations[lang].price;
+}
+setLang(lang);
+
+// Додаємо до кошика
+function addToCart(){
+  if(!selectedColor){ 
+    alert(translations[lang].selectColor); 
+    return; 
+  }
+
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  cart.push({
+      id: "cap1",
+      title: translations[lang].capTitle,
+      price: parseFloat(translations[lang].price.replace(/[^\d.]/g,'')),
+      color: selectedColor,
+      size: "One Size",
+      img: `cap-${selectedColor}-1.jpg`
+  });
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+  alert(translations[lang].cartAddMsg);
+}
+
+// Кнопка кошика
+document.getElementById("cartBtn").addEventListener('click', ()=>{
+  sessionStorage.setItem('previousPage', window.location.href);
+  window.location.href = "cart.html";
+});
+</script>
+
+</body>
+</html>
