@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://kripl.store/sitemap.xml
