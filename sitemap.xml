@@ -1,18 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
   <url>
-    <loc>https://kripl.store/</loc>
+    <loc>https://kripl.store/index.html</loc>
     <lastmod>2025-10-17</lastmod>
     <priority>1.0</priority>
   </url>
+
   <url>
-    <loc>https://kripl.store/about.html</loc>
+    <loc>https://kripl.store/cart.html</loc>
     <lastmod>2025-10-17</lastmod>
     <priority>0.8</priority>
   </url>
+
   <url>
-    <loc>https://kripl.store/contact.html</loc>
+    <loc>https://kripl.store/caps.html</loc>
     <lastmod>2025-10-17</lastmod>
     <priority>0.8</priority>
   </url>
+
+  <url>
+    <loc>https://kripl.store/cap1.html</loc>
+    <lastmod>2025-10-17</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://kripl.store/cap2.html</loc>
+    <lastmod>2025-10-17</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://kripl.store/tees.html</loc>
+    <lastmod>2025-10-17</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Файли shirt1.html – shirt12.html -->
+  <url><loc>https://kripl.store/shirt1.html</loc><lastmod>2025-10-17</lastmod><priority>0.8</priority></url>
+  <url><loc>https://kripl.store/shirt2.html</loc><lastmod>2025-10-17</lastmod><priority>0.8</priority></url>
+  <url><loc>https://kripl.store/shirt3.html</loc><lastmod>2025-10-17</lastmod><priority>0.8</priority></url>
+  <url><loc>https://kripl.store/shirt4.html</loc><lastmod>2025-10-17</lastmod><priority>0.8</priority></url>
+  <url><loc>https://kripl.store/shirt5.html</loc><lastmod>2025-10-17</lastmod><priority>0.8</priority></url>
+  <url><loc>https://kripl.store/shirt6.html</loc><lastmod>2025-10-17</lastmod><priority>0.8</priority></url>
+  <url><loc>https://kripl.store/shirt7.html</loc><lastmod>2025-10-17</lastmod><priority>0.8</priority></url>
+  <url><loc>https://kripl.store/shirt8.html</loc><lastmod>2025-10-17</lastmod><priority>0.8</priority></url>
+  <url><loc>https://kripl.store/shirt9.html</loc><lastmod>2025-10-17</lastmod><priority>0.8</priority></url>
+  <url><loc>https://kripl.store/shirt10.html</loc><lastmod>2025-10-17</lastmod><priority>0.8</priority></url>
+  <url><loc>https://kripl.store/shirt11.html</loc><lastmod>2025-10-17</lastmod><priority>0.8</priority></url>
+  <url><loc>https://kripl.store/shirt12.html</loc><lastmod>2025-10-17</lastmod><priority>0.8</priority></url>
+
+  <url>
+    <loc>https://kripl.store/hoodies.html</loc>
+    <lastmod>2025-10-17</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Файли hoodie1.html – hoodie5.html -->
+  <url><loc>https://kripl.store/hoodie1.html</loc><lastmod>2025-10-17</lastmod><priority>0.8</priority></url>
+  <url><loc>https://kripl.store/hoodie2.html</loc><lastmod>2025-10-17</lastmod><priority>0.8</priority></url>
+  <url><loc>https://kripl.store/hoodie3.html</loc><lastmod>2025-10-17</lastmod><priority>0.8</priority></url>
+  <url><loc>https://kripl.store/hoodie4.html</loc><lastmod>2025-10-17</lastmod><priority>0.8</priority></url>
+  <url><loc>https://kripl.store/hoodie5.html</loc><lastmod>2025-10-17</lastmod><priority>0.8</priority></url>
+
 </urlset>
