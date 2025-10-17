@@ -362,7 +362,6 @@ function renderCart() {
         return;
     }
 
-    // Групуємо товари по валютам
     const currencies = {};
     cartItems.forEach(item => {
         const currency = item.currency || 'UAH';
@@ -370,7 +369,6 @@ function renderCart() {
         currencies[currency].push(item);
     });
 
-    // Рендеримо по кожній валюті
     for(const [currency, items] of Object.entries(currencies)){
         const header = document.createElement('p');
         header.style.fontWeight = 'bold';
@@ -378,7 +376,7 @@ function renderCart() {
         header.textContent = `Товари у ${currency}:`;
         cartContainer.appendChild(header);
 
-        items.forEach((item)=>{
+        items.forEach(item => {
             const div = document.createElement('div');
             div.className = 'cart-item';
             div.innerHTML = `
@@ -395,6 +393,19 @@ function renderCart() {
             cartContainer.appendChild(div);
         });
 
+        const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+        const totalDiv = document.createElement('div');
+        totalDiv.style.fontWeight = 'bold';
+        totalDiv.style.textAlign = 'right';
+        totalDiv.style.marginBottom = '15px';
+        totalDiv.textContent = `Сума: ${total.toFixed(2)} ${currency}`;
+        cartContainer.appendChild(totalDiv);
+    }
+
+    checkoutBtn.disabled = false;
+}
+
+
         // Сума по валюті
         const total = items.reduce((sum,item)=>sum + item.price * item.quantity, 0);
         const totalDiv = document.createElement('div');
@@ -407,11 +418,29 @@ function renderCart() {
 
     checkoutBtn.disabled = false;
 }
+function parsePrice(priceText){
+    priceText = priceText.trim();
+    let price = parseFloat(priceText.replace(/[^\d.,]/g, '').replace(',', '.')) || 0;
+    let currency = 'UAH'; // валюта за замовчуванням
 
+    if(priceText.includes('$')) currency = 'USD';
+    else if(priceText.includes('₴')) currency = 'UAH';
+    else if(priceText.includes('zł')) currency = 'PLN';
+
+    return { price, currency };
+}
 function addToCart(item){
+    // автоматично визначаємо валюту, якщо передана ціна у вигляді рядка з символом
+    if(typeof item.price === 'string'){
+        const parsed = parsePrice(item.price);
+        item.price = parsed.price;
+        item.currency = parsed.currency;
+    } else {
+        item.currency = item.currency || 'грн';
+    }
+
     item.price = parseFloat(item.price) || 0;
     item.quantity = parseInt(item.quantity) || 1;
-    item.currency = item.currency || 'UAH'; // залишаємо валюту товару
 
     cartItems.push(item);
     saveCart();
