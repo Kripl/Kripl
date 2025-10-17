@@ -355,34 +355,65 @@ let cartItems = loadCart();
 
 function renderCart() {
     cartContainer.innerHTML = '';
+
     if(cartItems.length === 0){
         cartContainer.innerHTML = `<p>Кошик порожній</p>`;
         checkoutBtn.disabled = true;
-        updateTotal();
         return;
     }
-    cartItems.forEach((item, index)=>{
-        const div = document.createElement('div');
-        div.className = 'cart-item';
-        div.innerHTML = `
-            <img src="${item.img}" alt="Товар">
-            <div class="cart-item-details">
-                <p class="item-title">${item.title}</p>
-                <p class="item-color">${item.color}</p>
-                <p class="item-size">${item.size}</p>
-                <p class="cart-item-price">${item.price} ₴</p>
-            </div>
-            <input type="number" class="cart-item-quantity" value="${item.quantity}" min="1" onchange="changeQuantity(${index}, this.value)">
-            <button class="delete-btn" onclick="removeItem(${index})">Видалити</button>
-        `;
-        cartContainer.appendChild(div);
+
+    // Групуємо товари по валютам
+    const currencies = {};
+    cartItems.forEach(item => {
+        const currency = item.currency || 'UAH';
+        if(!currencies[currency]) currencies[currency] = [];
+        currencies[currency].push(item);
     });
+
+    // Рендеримо по кожній валюті
+    for(const [currency, items] of Object.entries(currencies)){
+        const header = document.createElement('p');
+        header.style.fontWeight = 'bold';
+        header.style.marginTop = '20px';
+        header.textContent = `Товари у ${currency}:`;
+        cartContainer.appendChild(header);
+
+        items.forEach((item)=>{
+            const div = document.createElement('div');
+            div.className = 'cart-item';
+            div.innerHTML = `
+                <img src="${item.img}" alt="Товар">
+                <div class="cart-item-details">
+                    <p class="item-title">${item.title}</p>
+                    <p class="item-color">${item.color}</p>
+                    <p class="item-size">${item.size}</p>
+                    <p class="cart-item-price">${item.price.toFixed(2)} ${currency}</p>
+                </div>
+                <input type="number" class="cart-item-quantity" value="${item.quantity}" min="1" onchange="changeQuantity(${cartItems.indexOf(item)}, this.value)">
+                <button class="delete-btn" onclick="removeItem(${cartItems.indexOf(item)})">Видалити</button>
+            `;
+            cartContainer.appendChild(div);
+        });
+
+        // Сума по валюті
+        const total = items.reduce((sum,item)=>sum + item.price * item.quantity, 0);
+        const totalDiv = document.createElement('div');
+        totalDiv.style.fontWeight = 'bold';
+        totalDiv.style.textAlign = 'right';
+        totalDiv.style.marginBottom = '15px';
+        totalDiv.textContent = `Сума: ${total.toFixed(2)} ${currency}`;
+        cartContainer.appendChild(totalDiv);
+    }
+
     checkoutBtn.disabled = false;
-    updateTotal();
 }
+
+
 function addToCart(item){
     item.price = parseFloat(item.price) || 0;
     item.quantity = parseInt(item.quantity) || 1;
+    item.currency = item.currency || 'UAH'; // залишаємо валюту товару
+
     cartItems.push(item);
     saveCart();
     renderCart();
