@@ -140,6 +140,26 @@
   transform: scale(1.2);
   opacity: 0.7;
 }
+		/* --- Адаптив для телефонів: 2 футболки в ряд --- */
+@media (max-width: 600px) {
+  .products {
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .card {
+    width: calc(50% - 15px); /* дві картки в ряд */
+  }
+
+  .card img {
+    height: 150px; /* зменшене зображення для телефону */
+  }
+
+  h1 {
+    font-size: 20px; /* трохи менший заголовок */
+  }
+}
+
   </style>
 </head>
 <body>
